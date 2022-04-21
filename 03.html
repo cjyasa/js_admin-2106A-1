@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .layer{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: rgba(0,0,0,.5);
+            left: 0;
+            top: 0;
+            display: none;
+        }
+        .box{
+            width: 400px;
+            height: 400px;
+            position: absolute;
+            left: 400px;
+            top: 200px;
+            background-color: #fff;
+            line-height: 80px;
+            text-align: center;
+            display: none;
+        }
+        .gb{
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 50%;
+            line-height: 50px;
+            text-align: center;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center" id="dj">点击 显示弹出框</h1>
+    <div class="layer"></div>
+    <div class="box">
+        <div class="gb" id="btn">关闭</div>
+        <h3>登录会员</h3>
+        用户名: <input type="text" placeholder="请输入用户名" id="uName"><input type="checkbox" id="ck">请记住用户名<br>
+        手机号: <input type="text" placeholder="请输入手机号" id="txt"><button id="btn1">发送</button><br>
+        <button>登录会员</button>
+    </div>
+</body>
+    <script>
+        var dj =document.getElementById('dj')
+        var layer =document.getElementsByClassName('layer')[0]
+        var box =document.getElementsByClassName('box')[0]
+        var btn =document.getElementById('btn')
+        var btn1 =document.getElementById('btn1')
+        var txt =document.getElementById('txt')
+        var ck =document.getElementById('ck')
+        var uName =document.getElementById('uName')
+        dj.onclick =function(){
+            layer.style.display ="block";
+            box.style.display ="block";
+        }
+        btn.onclick =function(){
+            layer.style.display ="none";
+            box.style.display ="none";
+        }
+        var timeId =null;
+        btn1.onclick =function(){
+            if(txt.value==""){
+                alert('内容不能为空')
+                txt.focus()
+                return;
+            }
+            btn1.disabled =true;
+            var num =3;
+            timeId =setInterval(function(){
+                if(num<1){
+                    btn1.disabled =false;
+                    btn1.innerHTML ='发送';
+                    clearInterval(timeId);
+                }else{
+                    btn1.innerHTML =`还剩下${num}秒`;
+                    num--;
+                }
+            },1000)
+        }
+        ck.onclick =function(){
+            if(ck.checked == true){
+                localStorage.setItem("uName",uName.value)
+            }else{
+                localStorage.removeItem("uName")
+            }
+        }
+    </script>
+</html>
