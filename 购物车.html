@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 850px;
+            height: 100px;
+            border-bottom: 4px solid orange;
+            margin-bottom: 20px;
+        }
+
+        #btn {
+            float: right;
+        }
+
+        table {
+            width: 850px;
+            text-align: center;
+        }
+
+        img {
+            width: 50px;
+            height: 50px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>我的购物车</h1>
+        <button id="btn">添加</button>
+    </div>
+    <table border="1" cellpadding=20 cellspacing=0>
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="ckAll">全选</th>
+                <th>商品名称</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="tby">
+            <!-- <tr>
+                <td><input type="checkbox"></td>
+                <td><img src="./img/1.jpg" alt="">小米无线鼠标 黑色</td>
+                <td>20</td>
+                <td><button>-</button><input type="text" value="1"><button>+</button></td>
+                <td>20</td>
+                <td><button>删除</button></td>
+            </tr> -->
+        </tbody>
+    </table>
+    <p id="ps">共0件商品，已选择0件， 合计0元</p>
+</body>
+<script>
+    var data = [{
+        img: "./img/1.jpg",
+        name: '小米无线鼠标',
+        price: 20,
+    }, {
+        img: "./img/2.jpg",
+        name: '小米蓝牙音箱',
+        price: 10,
+    }, {
+        img: "./img/3.jpg",
+        name: '小米蓝牙耳机',
+        price: 30,
+    }, {
+        img: "./img/4.jpg",
+        name: '彩虹5号电池',
+        price: 5,
+    }]
+
+    var btn = document.getElementById('btn')
+    var tby = document.getElementById('tby')
+    var ckAll = document.getElementById('ckAll')
+    var cks = document.getElementsByClassName('cks')
+    var ps = document.getElementById('ps')
+    var tds =document.getElementsByClassName('tds')
+    var txt =document.getElementsByClassName('txt')
+
+    var i = 0;
+    btn.onclick = function () {
+        var tr = document.createElement('tr')
+        tr.innerHTML = `<td><input type="checkbox" class="cks" onclick ="fn3(this)"></td>
+                <td><img src="${data[i].img}">${data[i].name}</td>
+                <td>${data[i].price}</td>
+                <td><button onclick ="fn2(this)">-</button><input type="text" value="1" class="txt"><button onclick ="fn1(this)">+</button></td>
+                <td class="tds">${data[i].price}</td>
+                <td><button onclick ="fn(this)">删除</button></td>`
+        tby.append(tr)
+        if (i >= 3) {
+            i = 0;
+        } else {
+            i++;
+        }
+        fn4()
+    }
+
+    function fn(that) {
+        that.parentNode.parentNode.remove();
+        fn4()
+    }
+
+    function fn1(that) {
+        var num = that.previousElementSibling.value;
+        num++;
+        that.previousElementSibling.value = num;
+        var danjia = that.parentNode.previousElementSibling.innerText;
+        var xiaoji = danjia * num;
+        that.parentNode.nextElementSibling.innerText = xiaoji;
+        fn4()
+    }
+
+    function fn2(that) {
+        var num = that.nextElementSibling.value;
+        if (num <= 1) {
+            return;
+        } else {
+            num--;
+        }
+        that.nextElementSibling.value = num;
+        var danjia = that.parentNode.previousElementSibling.innerText;
+        var xiaoji = danjia * num;
+        that.parentNode.nextElementSibling.innerText = xiaoji;
+        fn4()
+    }
+    ckAll.onclick = function () {
+        for (i = 0; i < cks.length; i++) {
+            cks[i].checked = ckAll.checked;
+        }
+        fn4()
+    }
+    function fn3(that) {
+        var a = 1;
+        for (i = 0; i < cks.length; i++) {
+            if (cks[i].checked == false) {
+                a = 2;
+            }
+        }
+        if (a == 1) {
+            ckAll.checked = true;
+        } else if (a == 2) {
+            ckAll.checked = false;
+        }
+        fn4()
+    }
+
+    function fn4() {
+        var sum = 0;
+        var sum1 = 0;
+        var sum2 = 0;
+        sum =tby.children.length;
+        for(i=0;i<cks.length;i++){
+            if (cks[i].checked == true) {
+                sum1 = sum1 + parseInt(txt[i].value);
+                sum2 = sum2 + parseInt(tds[i].innerText)
+            }
+        }
+        ps.innerHTML = `共${sum}种商品,已选择${sum1}件,合计${sum2}元`
+    }
+    fn4()
+</script>
+
+</html>
