@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        #txt{
+            width: 200px;
+            height: 100px;
+        }
+        #btn{
+            width: 60px;
+            height: 40px;
+            background-color: blue;
+        }
+        #list{
+            width: 100px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="txt"></textarea> <br/>
+    <button id="btn">发布</button>
+    <ul id="list">
+
+    </ul>
+</body>
+<script>
+    var txt =document.getElementById('txt')
+    var btn =document.getElementById('btn')
+    var list =document.getElementById('list')
+    btn.onclick=function(){
+        if(txt.value==''){
+            alert('内容不能为空')
+            return
+        }
+        var li =document.createElement('li')
+        li.innerHTML =txt.value
+        list.insertBefore(li,list.children[0])
+        txt.value=''
+    }
+    
+</script>
+</html>

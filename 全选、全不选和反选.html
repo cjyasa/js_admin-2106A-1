@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p><input type="checkbox" id="ckall">全选</p>
+
+           <input type="checkbox" class="ck">
+           <input type="checkbox" class="ck">
+           <input type="checkbox" class="ck">
+           <input type="checkbox" class="ck">
+           <input type="checkbox" class="ck">
+
+</body>
+<script>
+    var ckall =document.getElementById('ckall')
+    var cks =document.getElementsByClassName('ck')
+    ckall.onclick =function(){
+    for(var i=0;i<cks.length;i++){
+        cks[i].checked=ckall.checked
+        }
+    }
+    for(var a=0;a<cks.length;a++){
+        cks[a].onclick=function(){
+            var a=1;
+            for (let b = 0; b < cks.length; b++) {
+               if(cks[b].checked==false){
+                   a=2
+               }   
+            }
+            if(a==1){
+                ckall.checked=true
+
+            }else if(a==2){
+                ckall.checked=false
+            }
+        }
+    }
+</script>
+</html>
