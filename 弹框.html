@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .layer {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .box {
+            width: 400px;
+            height: 300px;
+            text-align: center;
+            line-height: 40px;
+            background-color: #fff;
+            position: absolute;
+            left: 400px;
+            top: 200px;
+            display: none;
+        }
+
+        #btn1 {
+            margin-left: 250px;
+
+        }
+
+        #tby tr {
+            transition: all 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn">添加数据</button><br><br>
+    <table border="1" cellpadding="20" cellspacing="0">
+        <thead>
+            <tr>
+                <th>课程名称</th>
+                <th>所属学院</th>
+                <th>已学会</th>
+            </tr>
+        </thead>
+        <tbody id="tby">
+            <!-- <tr>
+                <td>javascript</td>
+                <td>积云全栈方向</td>
+                <td><a href="#">GET</a></td>
+            </tr> -->
+        </tbody>
+    </table>
+    <div class="layer">
+
+    </div>
+    <div class="box">
+        <h1>添加课程</h1>
+        <button id="btn1">X</button>
+        <p>课程名称：<input type="text" placeholder="请输入课程名称" id="txt"></p>
+        <p>所属学院：<input type="text" value="积云全栈方向" id="txt1"></p>
+        <button id="btn2">添加</button>
+    </div>
+    <p id="p">已经学完了，可以毕业出去工作了。</p>
+</body>
+<script>
+    // var btn = document.getElementById('btn')
+    // var layer = document.getElementsByClassName('layer')[0]
+    // var box = document.getElementsByClassName('box')[0]
+    // var btn1 = document.getElementById('btn1')
+    // var btn2 = document.getElementById('btn2')
+    // var txt = document.getElementById('txt')
+    // var txt1 = document.getElementById('txt1')
+    // var tby = document.getElementById('tby')
+    // var tds = document.getElementsByClassName('tds')
+    // var p = document.getElementById('p')
+    // btn.onclick = function () {
+    //     layer.style.display = "block";
+    //     box.style.display = "block";
+    //     txt.focus()
+    // }
+    // btn1.onclick = function () {
+    //     layer.style.display = "none";
+    //     box.style.display = "none";
+    // }
+    // btn2.onclick = function () {
+    //     if (txt.value == "") {
+    //         alert('内容不能为空')
+    //         return;
+    //     }
+    //     for (i = 0; i < tds.length; i++) {
+    //         if (tds[i].innerText == txt.value) {
+    //             alert('内容不能重复')
+    //             return;
+    //         }
+    //     }
+    //     var tr = document.createElement('tr')
+    //     tr.innerHTML = `<td class ="tds">${txt.value}</td>
+    //             <td>${txt1.value}</td>
+    //             <td><a href="#" onclick ="fn(this)">GET</a></td>`
+    //     tby.append(tr)
+    //     txt.value = "";
+    //     if (tby.children.length == 0) {
+    //         p.style.display = "block";
+    //     } else {
+    //         p.style.display = "none"
+    //     }
+    // }
+
+    // function fn(that) { 
+    //     that.parentNode.parentNode.remove()
+    // }
+    //     if (tby.children.length == 0) {
+    //         p.style.display = "block";
+    //     } else {
+    //         p.style.display = "none"
+    //     }
+
+    var btn = document.getElementById('btn')
+    var layer = document.getElementsByClassName('layer')[0]
+    var box = document.getElementsByClassName('box')[0]
+    var btn1 = document.getElementById('btn1')
+    var btn2 = document.getElementById('btn2')
+    var txt = document.getElementById('txt')
+    var tds = document.getElementsByClassName('td')
+    var txt1 = document.getElementById('txt1')
+    var tby = document.getElementById('tby')
+    var p =document.getElementById('p')
+    btn.onclick = function () {
+        layer.style.display = "block"
+        box.style.display = "block"
+        txt.focus()
+    }
+    btn1.onclick = function () {
+        layer.style.display = "none"
+        box.style.display = "none"
+    }
+    btn2.onclick = function () {
+        if (txt.value == "") {
+            alert('内容不能为空')
+            return;
+        }
+        for (i = 0; i < tds.length; i++) {
+            if (tds[i].innerHTML == txt.value) {
+                alert('内容不能重复')
+                return;
+            }
+        }
+        var tr = document.createElement('tr')
+        tr.innerHTML = `
+                <td class ="tds">${txt.value}</td>
+                <td>${txt1.value}</td>
+                <td><a href="#" onclick ="fn(this)">GET</a></td>`
+        tby.append(tr)
+        txt.value = "";
+
+        if(tby.children.length==0){
+        p.style.display ="block"    
+    }else{
+        p.style.display ="none"
+    }
+}
+    function fn(that) {
+        that.parentNode.parentNode.remove()
+    }
+    if(tby.children.length==0){
+        p.style.display ="block"    
+    }else{
+        p.style.display ="none"
+    }
+</script>
+
+</html>

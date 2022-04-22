@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         #wrap {
+            width: 600px;
+            height: 400px;
+            border: 1px solid #000;
+            margin: 100px auto;
+            padding: 50px;
+            text-align: center;
+        }
+        table{
+            width: 600px;
+            height: 100px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <h1>任务列表</h1>
+        <input type="text" id="txt"><button id="btn">添加任务</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>需要完成的任务</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+        <tbody id="tby">
+            <!-- <tr>
+                <td>本地存储写三遍</td>
+                <td>2021-5-20</td>
+                <td><button>完成</button><button>删除</button></td>
+            </tr> -->
+        </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+        var tby =document.getElementById('tby')
+        var btn =document.getElementById('btn')
+        var txt =document.getElementById('txt')
+    function setData(dName,data){
+        localStorage.setItem(dName,JSON.stringify(data))
+    }
+    function getData(dName){
+         return JSON.parse(localStorage.getItem(dName)) 
+    }
+    var data =[]
+    if(getData('list')){
+        data =getData('list')
+    }
+    setData('list',data)
+    function fn(data){
+        var str="";
+        for(i=0;i<data.length;i++){
+            str+=` <tr>
+                <td>${data[i].name}</td>
+                <td>${data[i].time}</td>
+                <td><button>完成</button><button onclick ="fn1(this)" index ="${i}">删除</button></td>
+            </tr>`
+        }
+        tby.innerHTML =str;
+    }
+    fn(data)
+
+    btn.onclick =function(){
+        data =getData('list')
+        data.push({
+            name:txt.value,
+            time:new Date().toLocaleString()
+        })
+        setData('list',data)
+        fn(data)
+    }
+   function fn1(that){
+    var i =that.getAttribute('index');
+    data =getData('list')
+    data.splice(i,1)
+    setData('list',data)
+    fn(data)
+   }
+
+
+
+</script>
+</html>

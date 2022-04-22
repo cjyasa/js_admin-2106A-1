@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #wrap {
+            width: 500px;
+            height: 300px;
+            border: 1px solid red;
+            margin: 100px auto;
+        }
+
+        #list {
+            overflow: hidden;
+        }
+
+        #list li {
+            width: 100px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            float: left;
+            list-style: none;
+            background-color: pink;
+        }
+
+        #list .a {
+            background-color: gray;
+        }
+
+        .box1 div {
+            width: 500px;
+            height: 250px;
+            background-color: gray;
+            display: none;
+        }
+
+        .box1 .b {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="wrap">
+            <ul id="list">
+                <li class="a" index="0">精选</li>
+                <li index="1">美食</li>
+                <li index="2">百货</li>
+                <li index="3">个护</li>
+                <li index="4">预告</li>
+            </ul>
+        </div>
+        <div class="box1">
+            <div class="b">精选</div>
+            <div>美食</div>
+            <div>百货</div>
+            <div>个护</div>
+            <div>预告</div>
+        </div>
+    </div>
+</body>
+<script>
+    var list = document.getElementById('list')
+    var lis = list.getElementsByTagName('li')
+    var box1 = document.getElementsByClassName('box1')[0]
+    var divs = box1.getElementsByTagName('div')
+   
+    for (i = 0; i < lis.length; i++) {
+        lis[i].onclick = function () {
+            for (i = 0; i < lis.length; i++) {
+                lis[i].className = "";
+            }
+            this.className = "a";
+            for (i = 0; i < divs.length; i++) {
+                divs[i].className ="";
+            }
+            var j = this.getAttribute("index");
+            divs[j].className = "b";
+        }
+    }
+</script>
+
+</html>
